@@ -1,0 +1,90 @@
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+.hidden { display: none; }
+.container {
+  max-width: 960px;
+}
+
+.pricing-header {
+  max-width: 700px;
+}
+
+.card-deck .card {
+  min-width: 220px;
+}
+
+.border-top { border-top: 1px solid #e5e5e5; }
+.border-bottom { border-bottom: 1px solid #e5e5e5; }
+
+.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+
+.banner {
+	background: url(../img/bg.jpg) no-repeat;
+}
+.bychoice {
+	/*background: red;*/
+}
+ .display-3 {
+        font-size: 3.7em;
+      }
+      .bychoice li {
+        list-style-type: none;
+        display: inline;
+      }
+      .banner {
+        position: relative;
+   		}
+      .banner:after {
+      	position: absolute;
+      	width: 428px;
+	    height: 27px;
+	    content: " ";
+	    bottom: -5px;
+	    left: 126px;
+      	background: url(../img/bottom.png) no-repeat;
+      	background-size: contain;
+      }
+      .banner .search {
+        background: rgba(255,255,255,.8);
+        position: relative;
+      	/*min-height: 100px;*/
+        bottom: 24px;
+        text-align: center;
+        box-shadow: 1px 6px 10px #e2e0e0;
+      }
+
+      .banner .search:before {
+      	position: absolute;
+      	top: 0;
+      	width: 75px;
+      	height: 365px;
+      	content: " ";
+      	left: -76px;
+      	background: url(../img/left.png) no-repeat;
+      	background-size: contain;
+      }
+      .banner .search:after {
+      	position: absolute;
+      	width: 66px;
+      	height: 365px;
+      	content: " ";
+      	right: -67px;
+      	top: 0;
+      	background: url(../img/right.png) no-repeat;
+      	background-size: contain;
+      }
+      .form-inline .form-control.search2 {
+      	width: 420px;
+      }
+      .banner .container p {
+      	width: initial;
+      }
+      .banner .container .increase {
+      	width: 450px;
+      }
