@@ -1,0 +1,256 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>jQuery Ajax File Uploader Widget</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/themes/prism-coy.min.css" integrity="sha256-OPRaIzpiEHvHfgydlnA/89k9d55T02hawuzgWygdLls=" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+
+    <!-- Custom styles for this template -->
+    <link href="https://danielmg.org/assets/demo/uploader/css/jquery.dm-uploader.min.css?v=v10" rel="stylesheet">
+    <link href="https://danielmg.org/assets/demo/uploader/css/main.css?v=v10" rel="stylesheet">
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-638054-11"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-638054-11');
+</script>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-5">
+      <a class="navbar-brand" href="https://danielmg.org/">DanielMG.org</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#demosNavbarCollapse" aria-controls="demosNavbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="demosNavbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="https://danielmg.org/">Home</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Demos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://danielmg.org/web/about.html">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://danielmg.org/contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main role="main" class="container pt-2">
+
+      <h1>
+        jQuery Ajax File Uploader Widget
+        <a href="https://github.com/danielm/uploader" class="btn btn-info btn-lg float-right d-none d-lg-block" role="button" target="_blank">
+          <i class="fa fa-github"> View on GitHub</i>
+        </a>
+      </h1>
+      <p class="lead mb-4">
+        A very lightweight Plugin for file uploading using ajax(async) and includes support for queues, progress tracking and drag and drop.
+      </p>
+
+      <ul class="nav nav-tabs">
+        
+        
+        <li class="nav-item">
+          <a class="nav-link " href="https://danielmg.org/demo/java-script/uploader/basic">Basic</a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link " href="https://danielmg.org/demo/java-script/uploader/single-upload">Single Upload</a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link " href="https://danielmg.org/demo/java-script/uploader/controls">Controls</a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link active" href="https://danielmg.org/demo/java-script/uploader/images">Image Preview</a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link " href="https://danielmg.org/demo/java-script/uploader/queue-controls">Controls &amp; Queue</a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link " href="https://danielmg.org/demo/java-script/uploader/no-queue">No Queue</a>
+        </li>
+        
+      </ul>
+
+      <p class="mt-4 mb-3">
+  This example is the same as the Basic one excepts it <code>only accepts images</code> and it displays a small preview image on the list.
+  The preview is done using the <code>onNewFile</code> callback and the <code>FileReader</code> browser API.
+
+  <a href="#" data-toggle="modal" data-target="#sourceModal">View widget settings</a> used for this example.
+</p>
+
+<div class="row">
+  <div class="col-md-6 col-sm-12">
+    
+    <div id="drag-and-drop-zone" class="dm-uploader p-5 text-center">
+  <h3 class="mb-5 mt-5 text-muted">Drag &amp; drop Images here</h3>
+
+  <div class="btn btn-primary btn-block mb-5">
+      <span>Open the file Browser</span>
+      <input type="file" title='Click to add Files' />
+  </div>
+</div><!-- /uploader -->
+
+  </div>
+  <div class="col-md-6 col-sm-12">
+    <div class="card h-100">
+  <div class="card-header">
+    File List
+  </div>
+
+  <ul class="list-unstyled p-2 d-flex flex-column col" id="files">
+  	<li class="text-muted text-center empty">No files uploaded.</li>
+  </ul>
+</div>
+  </div>
+</div><!-- /file list -->
+
+
+<!-- File item template -->
+<script type="text/html" id="files-template">
+  <li class="media">
+    
+    <img class="mr-3 mb-2 preview-img" src="https://danielmg.org/assets/image/noimage.jpg?v=v10" alt="Generic placeholder image">
+    
+    <div class="media-body mb-1">
+      <p class="mb-2">
+        <strong>%%filename%%</strong> - Status: <span class="text-muted">Waiting</span>
+      </p>
+      <div class="progress mb-2">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" 
+          role="progressbar"
+          style="width: 0%" 
+          aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        </div>
+      </div>
+      
+      <hr class="mt-1 mb-1" />
+    </div>
+  </li>
+</script>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="sourceModal" tabindex="-1" role="dialog" aria-labelledby="sourceModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="sourceModalLabel">Widget Settings: Images Preview</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>
+          The snippets here are just an extract of what's important on this example and differs from the others.
+        </p>
+        <pre><code class="language-javascript">$('#drag-and-drop-zone').dmUploader({
+  url: 'backend/upload.php',
+  maxFileSize: 3000000, // 3 Megs max
+  allowedTypes: 'image/*',
+  extFilter: ['jpg', 'jpeg','png','gif'],
+  // ...
+  onNewFile: function(id, file){
+  	//...
+    if (typeof FileReader !== 'undefined'){
+      var reader = new FileReader();
+      var img = $('&lt;img /&gt;');
+        
+      reader.onload = function (e) {
+        img.attr('src', e.target.result);
+      }
+      /* ToDo: do something with the img! */
+      reader.readAsDataURL(file);
+    }
+  },
+  onFileTypeError: function(file){
+    // ...
+  },
+  onFileTypeError: function(file) {
+    // ...
+  }
+  // ...
+});</code></pre>
+
+        <p class="mb-0">
+          Source code available <a href="https://danielmg.org/assets/demo/uploader/js/configs/images.js?v=v10" target="_blank">here</a>.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <div class="alert alert-info" role="alert">
+        The examples here are just a <strong>few</strong> I came up with, there are <strong>many others</strong> settings combinations you can use to handle how to upload the files and/or manage the queue. Try it yourself :)
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+           <div class="card h-100">
+            <div class="card-header">
+              Debug Messages
+            </div>
+
+            <ul class="list-group list-group-flush" id="debug">
+              <li class="list-group-item text-muted empty">Loading plugin....</li>
+            </ul>
+          </div>
+        </div>
+      </div> <!-- /debug -->
+
+    </main> <!-- /container -->
+
+    <footer class="text-center">
+        <p>&copy; Daniel Morales &middot; <a href="https://www.danielmg.org">www.danielmg.org</a></p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/prism.min.js" integrity="sha256-hK55yYjZp3vXqUhowkWYVaoavcWSYRR6fE8sgHqyt5A=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/components/prism-javascript.min.js" integrity="sha256-tLhIAW/D2zypVjXCB31wyVYzDzNzxbGmymQKKTT7P8c=" crossorigin="anonymous"></script>
+
+    <script src="https://danielmg.org/assets/demo/uploader/js/jquery.dm-uploader.min.js?v=v10"></script>
+    <script src="https://danielmg.org/assets/demo/uploader/js/ui-main.js?v=v10"></script>
+
+    
+    <script src="https://danielmg.org/assets/demo/uploader/js/ui-multiple.js?v=v10"></script>
+  	
+    <script src="https://danielmg.org/assets/demo/uploader/js/configs/images.js?v=v10"></script>
+  	
+
+  	<!-- Debug item template -->
+    <script type="text/html" id="debug-template">
+      <li class="list-group-item text-%%color%%"><strong>%%date%%</strong>: %%message%%</li>
+    </script>
+
+    <!-- GitHub Fork me ribbon -->
+    <a href="https://github.com/danielm/uploader"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+  </body>
+</html>

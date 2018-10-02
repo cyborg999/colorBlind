@@ -1,7 +1,7 @@
 <?php
 // local
 $server 	= "localhost";
-$db 		= "jobs";
+$db 		= "colorblind";
 $username 	= "root";
 $charset 	= "utf8";
 $password 	= "";

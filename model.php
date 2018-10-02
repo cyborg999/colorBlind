@@ -18,7 +18,53 @@ class Model {
 
 		$this->db = $db;
 		$this->ishiharaListener();
+		$this->testListener();
+		$this->updateFileListener();
+		$this->updateIshihara();
 	}	
+
+	public function updateIshihara(){
+		if(isset($_POST['updateExam'])){
+			$stmnt = $this->db->prepare("
+					UPDATE ishihara
+					SET object = ?,
+						color = ?
+
+					WHERE id = ?
+				")->execute(array($_POST['name'], $_POST['color'], $_POST['id']));
+
+			die(json_encode(array("success")));
+		}
+	}
+
+	public function getIncompleteExams(){
+		return $this->db->query("
+			SELECT *
+			FROM ishihara
+			WHERE color IS NULL
+		")->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function getIshihara(){
+		return $this->db->query("
+			SELECT *
+			FROM ishihara
+			")->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	public function updateFileListener(){
+		if(isset($_POST['updateFile'])){
+			$this->db->prepare("
+					UPDATE ishihara
+					SET background = ?,
+						object = ?,
+						color = ?
+					WHERE id = ?
+				")->execute(array($_POST['bg'], $_POST['obj'], $_POST['color'], $_POST['id']));
+
+			die(json_encode(array("success")));
+		}
+	}
 
 	public function getSettings(){
 		return $this->db->query("
@@ -28,6 +74,12 @@ class Model {
 			")->fetch(PDO::FETCH_ASSOC);
 	}
 
+	public function testListener(){
+		if(isset($_POST['file'])){
+			$id = $this->addIshihara($_POST['file']);
+			return $id;
+		}
+	}
 
 	public function addIshihara($file){
 		$this->db->prepare("
@@ -35,12 +87,12 @@ class Model {
 				VALUES(?)
 			")->execute(array($file));
 
-		return $this->db->lastInsertedId();		
+		return $this->db->lastInsertId();
 	}
 
 	public function ishiharaListener(){
 		if(isset($_FILES['files'])){
-			// opd($_FILES);
+			opd($_FILES);
 			$_SESSION['id'] = 1;
 
 			$path = "uploads/".$_SESSION['id'];
