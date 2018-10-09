@@ -1,53 +1,33 @@
-<?php include_once "model.php"; ?>
-<?php $model = new Model(); 
-?>
-<?php include_once "header.php"; ?>
+  <?php include_once "model.php"; 
+  $model = new Model();
 
-  <style type="text/css">
+  ?>
+  <?php $active = "incomplete";
+  include_once "header.php"; ?>
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+    <?php include_once "topnav.php"; ?>
 
-  </style>
-    <div class="container-fluid">
-      <div class="row">
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <div class="container">
-            <div class="img-container profile-banner">
-              <h2 class="compname display-5">title</h2>
-            </div>
-          </div>
-          <br>
-
-          <div class="container">
-            <div class="row">
-              <div class="col">
-                
-              </div>
-              
-            </div>
-          </div>
-         
-        </main>
-      </div>
+      <style type="text/css">
+        
+      </style>
+      <main role="main" class="inner cover">
+        
+      </main>
+      <?php include_once "footer.php"; ?>
     </div>
- <!-- Bootstrap core JavaScript
+
+
+    <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script>window.jQuery || document.write('<script src="bootstrap-4.0.0/assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="bootstrap-4.0.0/assets/js/vendor/popper.min.js"></script>
-    <script src="js/jquery.js"></script>
+     <script src="js/jquery.js"></script>
     <script src="bootstrap-4.0.0/dist/js/bootstrap.min.js"></script>
-
-    <!-- Icons -->
-    <!-- <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script> -->
-    <script>
-      feather.replace()
-    </script>
-
     <script type="text/javascript">
       (function($){
         $(document).ready(function(){
-         
-        });
 
+          
+        });
       })(jQuery);
     </script>
   </body>
