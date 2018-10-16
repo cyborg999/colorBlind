@@ -22,6 +22,11 @@ $(function(){
     },
     onComplete: function(){
       // All files in the queue are processed (success or error)
+      $(".preview").each(function(x,y){
+        var me =  $(this);
+
+        me.attr("src", me.attr("src"));
+      });
       ui_add_log('All pending tranfers finished');
     },
     onNewFile: function(id, file){

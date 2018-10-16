@@ -20,13 +20,22 @@
           margin: 10px auto;
           display: block;
         }
+        .hidden {
+          display: none;
+        }
         .card {
           background: transparent;
           border: 0;
         }
         .card {
-          display: none;
+          position: relative;
         } 
+        .card .close {
+          position: absolute;
+          top: -56px;
+          right: 7px;
+          font-size: 29px;
+        }
         .card input[type="text"] {
           /*background: transparent;*/
         }
@@ -40,8 +49,10 @@
       </style>
       <main role="main" class="inner cover">
         <div class="jumbotron">
-          <?php foreach ($exams as $key => $value): ?>
-            <div data-id="<?= $value['id'];?>" class="card <?= ($key == 0) ? 'active' : ''; ?>">
+          <?php 
+          foreach ($exams as $key => $value): ?>
+            <div data-id="<?= $value['id'];?>" class="card <?= ($key == 0) ? 'active' : 'hidden'; ?>">
+              <a href="" class="close">x</a>
               <img class="card-img-top" src="backend/<?= $value['img'];?>" alt="<?= $value['color'];?>">
               <div class="card-body">
                 <h5 class="card-title">
@@ -75,6 +86,26 @@
     <script type="text/javascript">
       (function($){
         $(document).ready(function(){
+          $(".close").on("click", function(e){
+            e.preventDefault();
+
+            var me = $(this);
+            var id = me.parents(".card").data("id");
+            var next = me.parents(".card").next(".card");
+
+            $.ajax({
+              url : "process.php",
+              data : { deleteExam : true, id : id},
+              type : "POST",
+              dataType : "JSON",
+              success :  function(res){
+                console.log(res);
+
+                me.parents(".card").remove();
+                next.removeClass("hidden");
+              }
+            });
+          });
 
           $(".update").on("click", function(e){
             e.preventDefault();

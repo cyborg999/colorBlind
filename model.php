@@ -20,8 +20,21 @@ class Model {
 		$this->ishiharaListener();
 		$this->testListener();
 		$this->updateFileListener();
+		$this->deleteExamListener();
 		$this->updateIshihara();
 	}	
+
+	public function deleteExamListener(){
+		if(isset($_POST['deleteExam'])){
+
+			$this->db->prepare("
+				DELETE FROM ishihara
+				WHERE id = ?
+				")->execute(array($_POST['id']));
+
+			die(json_encode(array("deleted")));
+		}
+	}
 
 	public function updateIshihara(){
 		if(isset($_POST['updateExam'])){
